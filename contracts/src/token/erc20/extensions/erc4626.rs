@@ -10,6 +10,7 @@
 use alloc::{vec, vec::Vec};
 
 use alloy_primitives::{uint, Address, U256, U8};
+use openzeppelin_stylus_proc::interface_id;
 pub use sol::*;
 use stylus_sdk::{
     call::{Call, MethodError},
@@ -150,6 +151,7 @@ pub struct Erc4626 {
 unsafe impl TopLevelStorage for Erc4626 {}
 
 /// ERC-4626 Tokenized Vault Standard Interface
+#[interface_id]
 pub trait IErc4626 {
     /// The error type associated to the trait implementation.
     type Error: Into<alloc::vec::Vec<u8>>;
@@ -213,6 +215,7 @@ pub trait IErc4626 {
     ///     self.erc4626.convert_to_shares(assets, &self.erc20)
     /// }
     /// ```
+    #[selector(args = "uint256")]
     fn convert_to_shares(
         &mut self,
         assets: U256,
@@ -257,6 +260,7 @@ pub trait IErc4626 {
     ///     self.erc4626.convert_to_assets(shares, &self.erc20)
     /// }
     /// ```
+    #[selector(args = "uint256")]
     fn convert_to_assets(
         &mut self,
         shares: U256,
@@ -309,6 +313,7 @@ pub trait IErc4626 {
     ///     self.erc4626.preview_deposit(assets, &self.erc20)
     /// }
     /// ```
+    #[selector(args = "uint256")]
     fn preview_deposit(
         &mut self,
         assets: U256,
@@ -363,6 +368,7 @@ pub trait IErc4626 {
     ///     self.erc4626.deposit(assets, receiver, &mut self.erc20)
     /// }
     /// ```
+    #[selector(args = "uint256,address")]
     fn deposit(
         &mut self,
         assets: U256,
@@ -416,6 +422,7 @@ pub trait IErc4626 {
     ///     self.erc4626.preview_mint(shares, &self.erc20)
     /// }
     /// ```
+    #[selector(args = "uint256")]
     fn preview_mint(
         &mut self,
         shares: U256,
@@ -473,6 +480,7 @@ pub trait IErc4626 {
     ///     self.erc4626.mint(shares, receiver, &mut self.erc20)
     /// }
     /// ```
+    #[selector(args = "uint256,address")]
     fn mint(
         &mut self,
         shares: U256,
@@ -512,6 +520,7 @@ pub trait IErc4626 {
     ///     self.erc4626.max_withdraw(owner, &self.erc20)
     /// }
     /// ```
+    #[selector(args = "address")]
     fn max_withdraw(
         &mut self,
         owner: Address,
@@ -550,6 +559,7 @@ pub trait IErc4626 {
     ///     self.erc4626.preview_withdraw(assets, &self.erc20)
     /// }
     /// ```
+    #[selector(args = "uint256")]
     fn preview_withdraw(
         &mut self,
         assets: U256,
@@ -613,6 +623,7 @@ pub trait IErc4626 {
     ///     self.erc4626.withdraw(assets, receiver, owner, &mut self.erc20)
     /// }
     /// ```
+    #[selector(args = "uint256,address,address")]
     fn withdraw(
         &mut self,
         assets: U256,
@@ -643,6 +654,7 @@ pub trait IErc4626 {
     ///     self.erc4626.max_redeem(owner, &self.erc20)
     /// }
     /// ```
+    #[selector(args = "address")]
     fn max_redeem(&self, owner: Address, erc20: &Erc20) -> U256;
 
     /// Allows an on-chain or off-chain user to simulate the effects of their
@@ -682,6 +694,7 @@ pub trait IErc4626 {
     ///     self.erc4626.preview_redeem(shares, &self.erc20)
     /// }
     /// ```
+    #[selector(args = "uint256")]
     fn preview_redeem(
         &mut self,
         shares: U256,
@@ -738,6 +751,7 @@ pub trait IErc4626 {
     ///     self.erc4626.redeem(shares, receiver, owner, &mut self.erc20)
     /// }
     /// ```
+    #[selector(args = "uint256,address,address")]
     fn redeem(
         &mut self,
         shares: U256,
